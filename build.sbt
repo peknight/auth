@@ -21,8 +21,6 @@ lazy val auth = (project in file("."))
     authCore.js,
     authHttp4s.jvm,
     authHttp4s.js,
-    authTest.jvm,
-    authTest.js,
   )
   .settings(commonSettings)
   .settings(
@@ -46,17 +44,6 @@ lazy val authHttp4s = (crossProject(JSPlatform, JVMPlatform) in file("auth-http4
     name := "auth-http4s",
     libraryDependencies ++= Seq(
       "org.http4s" %%% "http4s-core" % http4sVersion,
-    ),
-  )
-
-lazy val authTest = (crossProject(JSPlatform, JVMPlatform) in file("auth-test"))
-  .dependsOn(
-    authCore,
-  )
-  .settings(commonSettings)
-  .settings(
-    name := "auth-test",
-    libraryDependencies ++= Seq(
     ),
   )
 
