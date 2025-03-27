@@ -7,7 +7,7 @@ import org.http4s.{AuthScheme, Credentials, Header}
 trait TokenSyntax:
   extension (token: Token)
     def toHeader: Header.ToRaw = token match
-      case Token.BearerAuth(token) => Authorization(Credentials.Token(AuthScheme.Bearer, token))
+      case Token.Bearer(token) => Authorization(Credentials.Token(AuthScheme.Bearer, token))
   end extension
 end TokenSyntax
 object TokenSyntax extends TokenSyntax
