@@ -8,6 +8,7 @@ trait TokenSyntax:
   extension (token: Token)
     def toHeader: Header.ToRaw = token match
       case Token.Bearer(token) => Authorization(Credentials.Token(AuthScheme.Bearer, token))
+      case t => Authorization(Credentials.Token(AuthScheme.Bearer, token.token))
   end extension
 end TokenSyntax
 object TokenSyntax extends TokenSyntax
