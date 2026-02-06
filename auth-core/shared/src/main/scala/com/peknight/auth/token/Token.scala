@@ -18,11 +18,11 @@ object Token:
       Codec.codecS[F, S, Bearer]
   end Bearer
   case class Token(token: String) extends com.peknight.auth.token.Token
-    given stringCodecToken[F[_] : Applicative]: Codec[F, String, String, Token] =
+  object Token:
+    given stringCodecToken[F[_]: Applicative]: Codec[F, String, String, Token] =
       Codec.map[F, String, String, Token](_.token)(Token.apply)
     given codecTokenS[F[_] : Applicative, S: {StringType, Show}]: Codec[F, S, Cursor[S], Token] =
       Codec.codecS[F, S, Token]
-  object Token:
   end Token
   def apply(token: String): com.peknight.auth.token.Token = Token(token)
 end Token
