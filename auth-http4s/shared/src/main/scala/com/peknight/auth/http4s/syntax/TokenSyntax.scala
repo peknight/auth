@@ -1,6 +1,6 @@
 package com.peknight.auth.http4s.syntax
 
-import com.peknight.auth.token.Token
+import com.peknight.auth.Token
 import org.http4s.headers.Authorization
 import org.http4s.{AuthScheme, Credentials, Header}
 
