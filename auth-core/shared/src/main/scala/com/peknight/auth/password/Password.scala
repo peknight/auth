@@ -10,12 +10,10 @@ trait Password:
   override def toString: String = "<Password>"
 end Password
 object Password:
-  case class Password(value: String) extends com.peknight.auth.password.Password
-  object Password:
-    given stringCodecPassword[F[_]: Applicative]: Codec[F, String, String, Password] =
-      Codec.map[F, String, String, Password](_.value)(Password.apply)
-    given codecPasswordS[F[_]: Applicative, S: {StringType, Show}]: Codec[F, S, Cursor[S], Password] =
-      Codec.codecS[F, S, Password]
-  end Password
+  private case class Password(value: String) extends com.peknight.auth.password.Password
   def apply(value: String): com.peknight.auth.password.Password = Password(value)
+  given stringCodecPassword[F[_]: Applicative]: Codec[F, String, String, com.peknight.auth.password.Password] =
+    Codec.map[F, String, String, com.peknight.auth.password.Password](_.value)(apply)
+  given codecPasswordS[F[_]: Applicative, S: {StringType, Show}]: Codec[F, S, Cursor[S], com.peknight.auth.password.Password] =
+    Codec.codecS[F, S, com.peknight.auth.password.Password]
 end Password
