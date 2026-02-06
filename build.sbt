@@ -8,13 +8,15 @@ lazy val auth = (project in file("."))
   .aggregate(
     authCore.jvm,
     authCore.js,
-    authCore.native,
     authHttp4s.jvm,
     authHttp4s.js,
   )
 
-lazy val authCore = (crossProject(JVMPlatform, JSPlatform, NativePlatform) in file("auth-core"))
+lazy val authCore = (crossProject(JVMPlatform, JSPlatform) in file("auth-core"))
   .settings(name := "auth-core")
+  .settings(crossDependencies(
+      peknight.codec,
+  ))
 
 lazy val authHttp4s = (crossProject(JVMPlatform, JSPlatform) in file("auth-http4s"))
   .dependsOn(authCore)
