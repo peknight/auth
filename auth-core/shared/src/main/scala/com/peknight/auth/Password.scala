@@ -11,7 +11,7 @@ trait Password:
   override def toString: String = "<Password>"
 end Password
 object Password:
-  private case class Password(value: String) extends auth.Password
+  case class Password(value: String) extends auth.Password
   def apply(value: String): auth.Password = Password(value)
   given stringCodecPassword[F[_]: Applicative]: Codec[F, String, String, auth.Password] =
     Codec.map[F, String, String, auth.Password](_.value)(apply)

@@ -11,7 +11,7 @@ sealed trait Token:
   override def toString: String = "<Token>"
 end Token
 object Token:
-  private case class Token(token: String) extends auth.Token
+  case class Token(token: String) extends auth.Token
   case class Bearer(token: String) extends auth.Token
   object Bearer:
     given stringCodecBearer[F[_]: Applicative]: Codec[F, String, String, Bearer] =

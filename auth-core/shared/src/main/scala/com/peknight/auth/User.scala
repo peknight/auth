@@ -11,7 +11,7 @@ trait User:
   override def toString: String = value
 end User
 object User:
-  private case class User(value: String) extends auth.User
+  case class User(value: String) extends auth.User
   def apply(value: String): auth.User = User(value)
   given stringCodecUser[F[_]: Applicative]: Codec[F, String, String, auth.User] =
     Codec.map[F, String, String, auth.User](_.value)(apply)
