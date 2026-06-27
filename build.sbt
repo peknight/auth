@@ -5,20 +5,20 @@ commonSettings
 
 lazy val auth = (project in file("."))
   .settings(name := "auth")
-  .aggregate(
-    authCore.jvm,
-    authCore.js,
-    authHttp4s.jvm,
-    authHttp4s.js,
-  )
+  .aggregate(authCore.projectRefs *)
+  .aggregate(authHttp4s.projectRefs *)
 
-lazy val authCore = (crossProject(JVMPlatform, JSPlatform) in file("auth-core"))
+lazy val authCore = (projectMatrix in file("auth-core"))
   .settings(name := "auth-core")
-  .settings(crossDependencies(
-      peknight.codec,
+  .settings(libraryDependencies ++= dependencies(
+    peknight.codec,
   ))
+  .jvmPlatform(scalaVersions = Seq(scala.scala3.version))
+  .jsPlatform(scalaVersions = Seq(scala.scala3.version))
 
-lazy val authHttp4s = (crossProject(JVMPlatform, JSPlatform) in file("auth-http4s"))
+lazy val authHttp4s = (projectMatrix in file("auth-http4s"))
   .dependsOn(authCore)
   .settings(name := "auth-http4s")
-  .settings(crossDependencies(http4s))
+  .settings(libraryDependencies ++= dependencies(http4s))
+  .jvmPlatform(scalaVersions = Seq(scala.scala3.version))
+  .jsPlatform(scalaVersions = Seq(scala.scala3.version))
