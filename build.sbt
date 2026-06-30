@@ -3,8 +3,9 @@ import com.peknight.build.sbt.*
 
 commonSettings
 
-lazy val auth = (project in file("."))
+lazy val auth = rootProject
   .settings(name := "auth")
+  .settings(publish / skip := true)
   .aggregate(authCore.projectRefs *)
   .aggregate(authHttp4s.projectRefs *)
 
