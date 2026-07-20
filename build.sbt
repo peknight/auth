@@ -12,7 +12,7 @@ lazy val auth = rootProject
 lazy val authCore = (projectMatrix in file("auth-core"))
   .settings(name := "auth-core")
   .settings(libraryDependencies ++= dependencies(
-    peknight.codec.effect,
+    peknight.codec,
   ))
   .jvmPlatform(scalaVersions = Seq(scala.scala3.version))
   .jsPlatform(scalaVersions = Seq(scala.scala3.version))

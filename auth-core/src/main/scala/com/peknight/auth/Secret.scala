@@ -18,6 +18,6 @@ object Secret:
     Codec.map[F, String, String, auth.Secret](_.value)(apply)
   given codecSecretS[F[_]: Applicative, S: {StringType, Show}]: Codec[F, S, Cursor[S], auth.Secret] =
     Codec.codecS[F, S, auth.Secret]
-  given keyDecodeSecret[F[_], S](using Reader[F, String])(using Monad[F]): Decoder[F, Key, auth.Secret] =
+  given keyDecodeSecret[F[_]](using Reader[F, String])(using Monad[F]): Decoder[F, Key, auth.Secret] =
     Decoder.decodeK[F, auth.Secret]
 end Secret

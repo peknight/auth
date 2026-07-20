@@ -19,7 +19,7 @@ object Token:
       Codec.map[F, String, String, Bearer](_.token)(Bearer.apply)
     given codecBearerS[F[_]: Applicative, S: {StringType, Show}]: Codec[F, S, Cursor[S], Bearer] =
       Codec.codecS[F, S, Bearer]
-    given keyDecodeBearer[F[_], S](using Reader[F, String])(using Monad[F]): Decoder[F, Key, Bearer] =
+    given keyDecodeBearer[F[_]](using Reader[F, String])(using Monad[F]): Decoder[F, Key, Bearer] =
       Decoder.decodeK[F, Bearer]
   end Bearer
   def apply(token: String): auth.Token = Token(token)
@@ -27,6 +27,6 @@ object Token:
     Codec.map[F, String, String, auth.Token](_.token)(apply)
   given codecTokenS[F[_] : Applicative, S: {StringType, Show}]: Codec[F, S, Cursor[S], auth.Token] =
     Codec.codecS[F, S, auth.Token]
-  given keyDecodeToken[F[_], S](using Reader[F, String])(using Monad[F]): Decoder[F, Key, auth.Token] =
+  given keyDecodeToken[F[_]](using Reader[F, String])(using Monad[F]): Decoder[F, Key, auth.Token] =
     Decoder.decodeK[F, auth.Token]
 end Token

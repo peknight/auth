@@ -18,6 +18,6 @@ object User:
     Codec.map[F, String, String, auth.User](_.value)(apply)
   given codecUserS[F[_]: Applicative, S: {StringType, Show}]: Codec[F, S, Cursor[S], auth.User] =
     Codec.codecS[F, S, auth.User]
-  given keyDecodeUser[F[_], S](using Reader[F, String])(using Monad[F]): Decoder[F, Key, auth.User] =
+  given keyDecodeUser[F[_]](using Reader[F, String])(using Monad[F]): Decoder[F, Key, auth.User] =
     Decoder.decodeK[F, auth.User]
 end User
