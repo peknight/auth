@@ -18,6 +18,6 @@ object Identifier:
     Codec.map[F, String, String, auth.Identifier](_.value)(apply)
   given codecIdentifierS[F[_]: Applicative, S: {StringType, Show}]: Codec[F, S, Cursor[S], auth.Identifier] =
     Codec.codecS[F, S, auth.Identifier]
-  given keyDecodeIdentifier[F[_], S](using Reader[F, String], Monad[F]): Decoder[F, Key, auth.Identifier] =
+  given keyDecodeIdentifier[F[_], S](using Reader[F, String])(using Monad[F]): Decoder[F, Key, auth.Identifier] =
     Decoder.decodeK[F, auth.Identifier]
 end Identifier

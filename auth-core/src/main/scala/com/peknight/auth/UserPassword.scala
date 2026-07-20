@@ -11,6 +11,6 @@ case class UserPassword(user: User, password: Password)
 object UserPassword:
   given codecUserPassword[F[_]: Monad, S: {ObjectType, NullType, StringType, Show}]: Codec[F, S, Cursor[S], UserPassword] =
     Codec.derived[F, S, UserPassword]
-  given keyDecodeUserPassword[F[_]](using Reader[F, String], Monad[F]): Decoder[F, Key, UserPassword] =
+  given keyDecodeUserPassword[F[_]](using Reader[F, String])(using Monad[F]): Decoder[F, Key, UserPassword] =
     Decoder.derivedByKey[F, UserPassword]
 end UserPassword
