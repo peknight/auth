@@ -1,11 +1,10 @@
 package com.peknight.auth
 
-import cats.{Applicative, Monad, Show}
+import cats.{Applicative, Show}
 import com.peknight.auth
+import com.peknight.codec.Codec
 import com.peknight.codec.cursor.Cursor
-import com.peknight.codec.reader.{Key, Reader}
 import com.peknight.codec.sum.StringType
-import com.peknight.codec.{Codec, Decoder}
 
 trait Identifier:
   def value: String
@@ -18,6 +17,4 @@ object Identifier:
     Codec.map[F, String, String, auth.Identifier](_.value)(apply)
   given codecIdentifierS[F[_]: Applicative, S: {StringType, Show}]: Codec[F, S, Cursor[S], auth.Identifier] =
     Codec.codecS[F, S, auth.Identifier]
-  given keyDecodeIdentifier[F[_]](using Reader[F, String])(using Monad[F]): Decoder[F, Key, auth.Identifier] =
-    Decoder.decodeK[F, auth.Identifier]
 end Identifier
