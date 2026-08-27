@@ -17,4 +17,5 @@ object User:
     Codec.map[F, String, String, auth.User](_.value)(apply)
   given codecUserS[F[_]: Applicative, S: {StringType, Show}]: Codec[F, S, Cursor[S], auth.User] =
     Codec.codecS[F, S, auth.User]
+  given showUser: Show[User] = Show.show(_.value)
 end User
